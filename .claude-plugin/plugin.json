@@ -1,0 +1,10 @@
+{
+  "name": "team-bgt",
+  "description": "BGT 팀 공용 Claude Code 플러그인",
+  "version": "1.0.0",
+  "author": { "name": "kcy" },
+  "dependencies": [
+    { "name": "superpowers", "marketplace": "claude-plugins-official" },
+    { "name": "ponytail", "marketplace": "ponytail" }
+  ]
+}

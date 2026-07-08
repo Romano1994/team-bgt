@@ -1,0 +1,15 @@
+{
+  "extraKnownMarketplaces": {
+    "team-bgt": {
+      "source": { "source": "github", "repo": "<your-org>/team-bgt" }
+    },
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+    }
+  },
+  "enabledPlugins": {
+    "team-bgt@team-bgt": true,
+    "superpowers@claude-plugins-official": true,
+    "ponytail@ponytail": true
+  }
+}

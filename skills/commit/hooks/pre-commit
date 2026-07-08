@@ -1,0 +1,16 @@
+#!/bin/sh
+# BGT commit guard — 스테이징된 민감 파일(.env/.properties/키)을 차단한다.
+# commit 스킬 SKILL.md 의 Setup 안내대로 fe/be 각 .git/hooks 에 설치한다.
+# 차단 패턴은 SKILL.md Workflow 3단계 인라인 가드와 동일하게 유지한다.
+
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+hits=$(printf '%s\n' "$staged" | grep -Ei '(^|/)\.env($|\.)|\.(properties|pem|key|p12|pfx|jks|keystore|pkcs12)$|(^|/)id_rsa$')
+if [ -n "$hits" ]; then
+  echo "✗ 커밋 차단: 민감 파일이 스테이징되었습니다." >&2
+  printf '%s\n' "$hits" | sed 's/^/   - /' >&2
+  echo "  → git restore --staged <file> 후 .gitignore 에 추가하세요." >&2
+  exit 1
+fi
+exit 0

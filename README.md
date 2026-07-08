@@ -29,6 +29,6 @@ claude --plugin-dir ./team-bgt
 ## 팀 설치 (마켓플레이스 배포 후)
 
 ```
-/plugin marketplace add <your-org>/team-bgt
+/plugin marketplace add Romano1994/team-bgt
 /plugin install team-bgt@team-bgt
 ```

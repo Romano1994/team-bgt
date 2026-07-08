@@ -1,7 +1,7 @@
 {
   "extraKnownMarketplaces": {
     "team-bgt": {
-      "source": { "source": "github", "repo": "<your-org>/team-bgt" }
+      "source": { "source": "github", "repo": "Romano1994/team-bgt" }
     },
     "ponytail": {
       "source": { "source": "github", "repo": "DietrichGebert/ponytail" }

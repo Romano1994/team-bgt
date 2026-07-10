@@ -82,8 +82,14 @@ function main() {
   // 이미 stop 훅으로 재개된 상태면 재차단하지 않는다(1차 루프 가드).
   if (input.stop_hook_active) process.exit(0);
 
-  const projectRoot = input.cwd || process.cwd();
-  const bgtFe = path.join(projectRoot, 'bgt-fe');
+  // 훅 cwd 는 프로젝트 루트일 수도, bgt-fe 그 자체일 수도 있다(cwd 드리프트 대응).
+  const cwd = input.cwd || process.cwd();
+  let projectRoot = cwd;
+  let bgtFe = path.join(cwd, 'bgt-fe');
+  if (!fs.existsSync(bgtFe) && path.basename(cwd).toLowerCase() === 'bgt-fe') {
+    bgtFe = cwd; // cwd 가 곧 bgt-fe
+    projectRoot = path.dirname(cwd); // 진짜 루트는 그 부모(.claude 상태파일용)
+  }
   if (!fs.existsSync(bgtFe)) process.exit(0);
 
   // 세션 로그가 없으면(구버전 등) 턴 스코프를 알 수 없으므로 발동하지 않는다.

@@ -2,7 +2,7 @@
 name: uiux-verifier
 description: >-
   bgt-fe 화면·컴포넌트를 .claude/rules/UIUX/ 표준과 정적으로 대조해 위반을 등급별로 보고한다(읽기 전용, 수정 안 함).
-  사용자가 'UIUX 검사/점검/리뷰/디자인 규칙 위반 확인'을 요청하거나, 화면 UI 작업이 마무리돼 표준 준수 점검이 필요할 때 사용.
+  사용자가 'UIUX 검사/점검/리뷰/디자인 규칙 위반 확인'을 요청하거나, 턴이 끝날 때(응답 직전) 화면 UI 작업을 점검할 때만 사용. 편집 도중(mid-turn)에는 호출하지 않는다.
 tools: Read, Grep, Glob
 model: sonnet
 ---

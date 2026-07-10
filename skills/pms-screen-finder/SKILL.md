@@ -108,3 +108,14 @@ ASIS PMS의 **메뉴 path(breadcrumb)** 또는 **화면 코드**를 받아, `C:\
 1. leaf `일반기성내역` 뒤 `Tab` 표시 → 하위 요소. 상위 세그먼트 `도급기성수금`(화면명)과 leaf를 함께 검색한다.
 2. 상위 화면명으로 패키지를 잡는다(MPOST면 `MPOST.{모듈}.{코드}` 폴더).
 3. 패키지 안에서 `일반기성내역` 캡션이 박힌 파일을 **대상 탭**으로 지목하고, 구성요소 맵(탭 `UC…S{n}`, 팝업 `*Pop*`, 폼 `Form*`)을 함께 보고한다. 위치 = 하단 탭.
+
+## UIUX 표준 안내 (UI 화면 결과일 때)
+
+이 스킬 결과는 항상 ASIS UI 화면 패키지다. 답변 **맨 끝에** 아래 블록을 덧붙여, BGT로 이관할 때의 UIUX 표준을 안내한다. ASIS UI는 동작만 참고하고 시각/구성은 BGT 표준으로 재구현한다.
+
+> **🎨 UIUX 표준 참고** — 이 ASIS 화면을 BGT로 이관·재구현할 때는 `.claude/rules/UIUX/` 표준을 따른다(ASIS 화면을 그대로 옮기지 말 것).
+> - 핵심 MUST: `.claude/rules/UIUX/00-core.md` (Primary `#037AF2`, 세로/가로 간격, 타이포, 버튼 순서, 그리드 셀 상태 등)
+> - 토큰(색상·타이포·스페이싱·아이콘·해상도): `01-foundation-tokens.md`
+> - 레이아웃·화면 패턴·폼·그리드: `02-layout-and-patterns.md`
+> - 컴포넌트별 규격: `03-components.md`
+> 공통 UI는 `@amxis/design-system`, 그리드는 IBSheet로 구현한다.

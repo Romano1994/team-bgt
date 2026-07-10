@@ -80,3 +80,14 @@ bgt 페이지에는 cst식 `Name/Path/Desc` 헤더 블록이 **없다**. 별도 
 - 스코프는 두 프로젝트의 **프론트엔드 페이지**로 한정한다(cst-feature-finder와 동일 범위). `bgt-be` 등 백엔드는 사용자가 요청할 때만 별도 확인한다.
 - 동일 기능이 여러 화면에 있으면 프로젝트별로 모두 나열한다.
 - 사용자가 말한 게 특정 **메뉴명**에 가깝다면, cst는 `PMX_메뉴.md`의 `MNU_NM`, bgt는 `ASIS_메뉴.md`의 `SCREEN_NM`을 직접 검색해 역추적하는 것도 보조 수단으로 쓴다.
+
+## UIUX 표준 안내 (UI 화면 결과일 때)
+
+찾은 대상이 **UI 화면·컴포넌트**라면(대부분), 답변 **맨 끝에** 아래 블록을 덧붙여 BGT UIUX 표준을 안내한다. UI가 아닌 결과(순수 hook·util·API 함수 등)에는 붙이지 않는다.
+
+> **🎨 UIUX 표준 참고** — 이 화면을 BGT로 (재)구현·수정할 때는 `.claude/rules/UIUX/` 표준을 따른다.
+> - 핵심 MUST: `.claude/rules/UIUX/00-core.md` (Primary `#037AF2`, 세로/가로 간격, 타이포, 버튼 순서, 그리드 셀 상태 등)
+> - 토큰(색상·타이포·스페이싱·아이콘·해상도): `01-foundation-tokens.md`
+> - 레이아웃·화면 패턴·폼·그리드: `02-layout-and-patterns.md`
+> - 컴포넌트별 규격: `03-components.md`
+> 공통 UI는 `@amxis/design-system`, 그리드는 IBSheet로 구현한다.

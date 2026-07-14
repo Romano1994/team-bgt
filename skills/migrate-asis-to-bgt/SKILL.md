@@ -135,7 +135,7 @@ FE/BE 구현이 완료된 후, 개발 표준 검증(Phase 5)·QA 검증(Phase 6)
 - AS-IS 스펙 ↔ TO-BE 수집을 대조해 누락/추가 항목·구성 어긋남 목록을 산출한다.
 
 **② 비전 비교 (의미적 신호, 룩앤필)**
-- `browser_snapshot`·`browser_take_screenshot`으로 TO-BE를 캡쳐해, `docs/migration/{화면명}/`의 ASIS 캡쳐(있으면)와 `*.designer.cs` 구성 대비로 비교한다. UI 요소 순서(위→아래·좌→우), 깨진 레이아웃, 겹침·잘림, 검색 영역 정렬 규칙(같은 열 라벨 우측 끝 정렬·입력 너비 동일)을 ASIS·Phase 2 참고 화면 대비로 점검한다.
+- `browser_snapshot`·`browser_take_screenshot`으로 TO-BE를 캡쳐해, `docs/migration/ASIS_{화면명}/`의 ASIS 캡쳐와 `*.designer.cs` 구성 대비로 비교한다. UI 요소 순서(위→아래·좌→우), 깨진 레이아웃, 겹침·잘림, 검색 영역 정렬 규칙(같은 열 라벨 우측 끝 정렬·입력 너비 동일)을 ASIS·Phase 2 참고 화면 대비로 점검한다.
 
 **검증 전략** — ①(.designer.cs 스펙 대조)로 필드·구성 완전성을 먼저 확정한 뒤 ②(비전)로 룩앤필을 점검한다. `.designer.cs`를 못 찾으면(스크린샷만 가용 등) ②(비전) 단독으로 폴백하고 그 사실을 보고서에 기록한다.
 

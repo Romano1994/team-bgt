@@ -9,6 +9,8 @@ team-bgt/
 ├── .claude-plugin/
 │   └── plugin.json      # 매니페스트 + 의존성(superpowers, ponytail)
 ├── agents/              # 구현·검증 서브에이전트
+├── commands/            # 슬래시 명령
+│   └── setup-cc         # 터미널 'cc' → claude 별칭 설치
 ├── hooks/               # Stop 훅(fe 검증 게이트)
 └── skills/              # 슬래시 스킬
     ├── cst-feature-finder
@@ -40,6 +42,12 @@ team-bgt/
 | `migrate-feature-asis-to-bgt` | ASIS 화면의 특정 기능을 기존 BGT 화면에 기능 단위로 이식(migrate 후속) |
 | `grill-me` | 계획·설계를 결정 트리 단위로 끝까지 캐물어 검증 |
 | `commit` | fe/be 변경을 컨벤션 한국어 메세지로 커밋(민감파일 차단·문서확인·ponytail 리뷰) |
+
+### commands
+
+| 명령 | 설명 |
+|---|---|
+| `/setup-cc` | 터미널에서 `cc`만 입력하면 `claude`가 실행되도록 PowerShell 프로필($PROFILE, 유저 scope)에 별칭을 설치(멱등). 팀원이 1회 실행. Windows/PowerShell 전용. |
 
 ### hooks
 

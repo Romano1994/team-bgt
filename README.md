@@ -18,6 +18,8 @@ team-bgt/
     ├── migrate-asis-to-bgt
     ├── migrate-feature-asis-to-bgt
     ├── pms-screen-finder
+    ├── standard-verify
+    ├── standard-refactor
     ├── grill-me
     └── commit                  # 커밋 가드는 인라인(plain git), 하드차단 훅은 skills/commit/hooks/pre-commit
 ```
@@ -40,6 +42,8 @@ team-bgt/
 | `pms-screen-finder` | PMS 메뉴 path 또는 화면 코드로 로컬 화면 패키지 경로를 찾음 |
 | `migrate-asis-to-bgt` | PMS/TEMS ASIS 화면을 UI·기능 1:1로 유지하며 BGT로 이관 |
 | `migrate-feature-asis-to-bgt` | ASIS 화면의 특정 기능을 기존 BGT 화면에 기능 단위로 이식(migrate 후속) |
+| `standard-verify` | 화면 단위로 fe/be/uiux verifier 3종을 돌려 `docs/verifier`에 간략 표준 검사 보고서 생성(읽기 전용) |
+| `standard-refactor` | `standard-verify` 보고서의 위반 항목을 implementer에 위임해 수정(ID 지정 또는 전체, 재검증 없음) |
 | `grill-me` | 계획·설계를 결정 트리 단위로 끝까지 캐물어 검증 |
 | `commit` | fe/be 변경을 컨벤션 한국어 메세지로 커밋(민감파일 차단·문서확인·ponytail 리뷰) |
 

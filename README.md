@@ -23,7 +23,8 @@ team-bgt/
     ├── uiux-standard-finder
     ├── uiux-guide
     ├── grill-me
-    └── commit                  # 커밋 가드는 인라인(plain git), 하드차단 훅은 skills/commit/hooks/pre-commit
+    ├── commit                  # 커밋 가드는 인라인(plain git), 하드차단 훅은 skills/commit/hooks/pre-commit
+    └── team-bgt-commit         # 플러그인 레포 자체 커밋/버전올려 push(fe/be 소스 커밋 아님)
 ```
 
 ### agents
@@ -47,9 +48,10 @@ team-bgt/
 | `standard-verify` | 화면 단위로 fe/be/uiux verifier 3종을 돌려 `docs/verifier`에 간략 표준 검사 보고서 생성(읽기 전용) |
 | `standard-refactor` | `standard-verify` 보고서의 위반 항목을 implementer에 위임해 수정(ID 지정 또는 전체, 재검증 없음) |
 | `uiux-standard-finder` | UI 항목이 원본 UIUX 표준 PDF의 몇 페이지·어느 섹션에 나오는지 한 줄로 짚음(위치만) |
-| `uiux-guide` | UI/UX 질문에 프로젝트 UIUX 표준(`.claude/rules/UIUX/`) 근거로 권장안을 답함(읽기 전용 자문) |
+| `uiux-guide` | UI/UX 질문에 권장안을 답하되 근거는 원본 UIUX 표준 PDF의 footer 페이지로 인용(읽기 전용 자문) |
 | `grill-me` | 계획·설계를 결정 트리 단위로 끝까지 캐물어 검증 |
 | `commit` | fe/be 변경을 컨벤션 한국어 메세지로 커밋(민감파일 차단·문서확인·ponytail 리뷰) |
+| `team-bgt-commit` | 플러그인 레포 자체를 커밋하고, 승인 시 origin/main pull→최신 version+patch→push(무관 매뉴얼 문서는 되물음) |
 
 ### commands
 

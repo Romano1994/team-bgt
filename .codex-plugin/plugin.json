@@ -1,0 +1,36 @@
+{
+  "name": "team-bgt",
+  "version": "1.2.0+codex.local",
+  "description": "BGT team shared Codex skills for migration, standard verification, UI/UX guidance, and commit workflows.",
+  "author": {
+    "name": "kcy"
+  },
+  "homepage": "https://github.com/Romano1994/team-bgt",
+  "repository": "https://github.com/Romano1994/team-bgt.git",
+  "keywords": [
+    "bgt",
+    "codex",
+    "skills",
+    "migration",
+    "uiux"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "team-bgt",
+    "shortDescription": "BGT team workflows packaged as Codex skills.",
+    "longDescription": "Shared BGT engineering workflows for finding reference screens, migrating ASIS screens, checking standards, UI/UX guidance, and guarded commit routines.",
+    "developerName": "kcy",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills",
+      "Workflows"
+    ],
+    "websiteURL": "https://github.com/Romano1994/team-bgt",
+    "defaultPrompt": [
+      "Use team-bgt to migrate this ASIS screen.",
+      "Use team-bgt to verify this BGT screen.",
+      "Use team-bgt to find this feature."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

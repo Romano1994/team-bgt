@@ -8,6 +8,7 @@ $ErrorActionPreference = 'SilentlyContinue'
 # 키 = transcript 에 기록되는 model id. 마지막 assistant 라인의 model 로 창 크기를 고른다. 없으면 $DefaultWindow.
 # 주의: [1m] 접미사는 transcript 에 안 남으므로(opus-4-8 200K/1M 이 같은 id) 아래서 사용량으로 보정한다.
 $WindowByModel = @{
+  'claude-opus-5'     = 1000000   # opus-5[1m].   표준 200K 로만 쓰면 200000 로.
   'claude-opus-4-8'   = 1000000   # opus-4-8[1m]. 표준 200K 로만 쓰면 200000 로.
   'claude-sonnet-4-6' = 200000
   'claude-haiku-4-5'  = 200000

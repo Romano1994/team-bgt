@@ -50,7 +50,9 @@ description: ASIS 화면(PMS/TEMS)의 특정 기능을 이미 존재하는 BGT T
 
 ### Phase 4: BGT 구현 (BE + FE)
 
-BE는 `bgt-be/docs/Server.md`를, FE는 `bgt-fe/src/docs/ko/Intro.md` 및 하위 문서를 먼저 읽는다.
+구현 전에 `.claude/rules/develop/README.md` 목차에서 이 기능에 해당하는 케이스 문서를 매칭해 먼저 읽는다 (`00-core.md` + 매칭된 `a-archetype`/`b-feature`/`c-api`/`d-workflow` 문서). 각 문서의 **참고 원본** 파일을 복사 기반으로 작업하고, **레시피** 단계를 그대로 따른다.
+
+기능 이식이므로 `d-workflow/d-17-as-is-migration.md`는 항상 읽고, SP 연동은 `c-api/c-13-new-api.md`·`c-api/c-19-sp-cursor-alias-mapping.md`를 함께 읽는다.
 
 **BE** (Phase 3에서 매칭한 SP가 있을 때):
 - Model → Repository → Service → Controller 순서로 구현한다.

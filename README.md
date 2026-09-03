@@ -14,7 +14,11 @@ team-bgt/
 │   └── marketplace.json # Codex marketplace 정의
 ├── agents/              # 구현·검증 서브에이전트
 ├── commands/            # 슬래시 명령
-│   └── setup-cc         # 터미널 'cc' → claude 별칭 설치
+│   ├── setup-cc         # 터미널 'cc' → claude 별칭 설치
+│   └── setup-rules      # rules/ → 프로젝트 .claude/rules/ 복사·갱신
+├── rules/               # 개발·UIUX 표준 배포 원본(로더 미인식 — setup-rules 로 프로젝트에 복사)
+│   ├── develop/         #   00-core(상시) + A화면/B기능/C API/D워크플로 케이스
+│   └── UIUX/            #   00-core(상시) + 01 토큰/02 레이아웃/03 화면패턴/04 컴포넌트
 ├── hooks/               # Stop 훅(fe 검증 게이트 · compact 리마인더)
 └── skills/              # 슬래시 스킬
     ├── cst-feature-finder
@@ -62,6 +66,19 @@ team-bgt/
 | 명령 | 설명 |
 |---|---|
 | `/setup-cc` | 터미널에서 `cc`만 입력하면 `claude`가 실행되도록 PowerShell 프로필($PROFILE, 유저 scope)에 별칭을 설치(멱등). 팀원이 1회 실행. Windows/PowerShell 전용. |
+| `/setup-rules` | `rules/`(개발·UIUX 표준)를 **현재 프로젝트**의 `.claude/rules/` 로 복사·갱신(멱등, 덮어쓰기). 프로젝트마다 1회 + 플러그인 업데이트 후 재실행. |
+
+### rules
+
+`rules/develop/`(개발 표준) · `rules/UIUX/`(UI/UX 표준)의 **배포 원본**이다. 플러그인 로더는 이 폴더를 읽지 않는다 — rules 자동 주입은 **프로젝트 디렉터리 전용 빌트인**이라 플러그인 컴포넌트로 존재하지 않는다.
+
+`/setup-rules` 로 프로젝트에 복사해야 원래 동작이 그대로 산다:
+
+- `paths:` frontmatter **없음**(`develop/00-core`·`UIUX/00-core`·`d-workflow/*`·README) → 세션 시작 시 상시 로드
+- `paths:` **있음**(A/B/C 케이스·UIUX 01~04) → 매칭 파일을 도구가 건드릴 때 tool result 뒤에 **세션당 1회** 주입
+
+> 훅으로 대신 주입하면 상시 층은 흉내내도 **글롭 조건부 주입은 재현되지 않는다**(훅에 그 트리거가 없다). 그래서 복사 방식을 쓴다.
+> 설치·갱신 후에는 `/clear` 또는 재시작이 필요하다 — 룰 인덱스는 세션 시작 시점에 잡히므로 도중에 심은 룰은 그 세션에 주입되지 않는다.
 
 ### hooks
 

@@ -23,8 +23,9 @@ BGT 화면·컴포넌트를 어떻게 만드는 게 표준인지 물으면, **�
 - **항상** `00-core.md`(MUST / MUST NOT 체크리스트)를 읽는다.
 - 질문 종류에 따라 세부 파일 1개를 더 읽어 정량값·근거를 확인한다(파일이 작다):
   - 색상·타이포·스페이싱·아이콘·해상도 → `01-foundation-tokens.md`
-  - 레이아웃·12컬럼 그리드·화면 패턴·폼·그리드 → `02-layout-and-patterns.md`
-  - 컴포넌트별 규격(버튼·드롭다운·입력·탭·툴팁·토스트 등) → `03-components.md`
+  - 레이아웃·12컬럼 그리드·Dialogue·폼/그리드 서식 → `02-layout-and-frame.md`
+  - 화면 패턴(9종·Grid·마스터디테일·Process·EmptyState) → `03-screen-patterns.md`
+  - 컴포넌트별 규격(버튼·드롭다운·입력·탭·툴팁·토스트 등) → `04-components.md`
 
 ## 2. 답변 규칙 (근거 기반)
 

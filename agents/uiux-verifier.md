@@ -24,8 +24,9 @@ model: sonnet
 1. `.claude/rules/UIUX/00-core.md` — MUST / MUST NOT 체크리스트. **항상 읽는다.**
 2. 필요 시 상세 문서를 읽어 근거를 확인한다(파일이 작다):
    - `01-foundation-tokens.md` — 색상 팔레트·타이포·스페이싱·아이콘·해상도
-   - `02-layout-and-patterns.md` — 레이아웃·12컬럼 그리드·폼·그리드·화면 패턴
-   - `03-components.md` — 컴포넌트별 규격
+   - `02-layout-and-frame.md` — Frame·12컬럼 그리드·Dialogue·폼/그리드 서식
+   - `03-screen-patterns.md` — 화면 패턴 9종·Grid View/Edit·마스터디테일·Process·Empty State
+   - `04-components.md` — 컴포넌트별 규격
 
 ## 판정 원칙 (오탐 방지 — 반드시 지킨다)
 
@@ -49,7 +50,7 @@ model: sonnet
 ```
 [①] 규칙출처 — file:line — 무엇이 문제 — 제안
 ```
-- 규칙출처 예: `00-core MUST #10 버튼순서`, `03-components Dropdown`, `01 스페이싱`.
+- 규칙출처 예: `00-core 게이트 #14 Empty State`, `04-components Dropdown`, `01 스페이싱`.
 - 위반이 없으면 해당 등급은 `없음` 으로 표기.
 - 마지막에 한 줄 요약: `① N건 · ② N건 · ③ N건`.
 

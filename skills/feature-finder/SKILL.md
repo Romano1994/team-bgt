@@ -88,6 +88,7 @@ bgt 페이지에는 cst식 `Name/Path/Desc` 헤더 블록이 **없다**. 별도 
 > **🎨 UIUX 표준 참고** — 이 화면을 BGT로 (재)구현·수정할 때는 `.claude/rules/UIUX/` 표준을 따른다.
 > - 핵심 MUST: `.claude/rules/UIUX/00-core.md` (Primary `#037AF2`, 세로/가로 간격, 타이포, 버튼 순서, 그리드 셀 상태 등)
 > - 토큰(색상·타이포·스페이싱·아이콘·해상도): `01-foundation-tokens.md`
-> - 레이아웃·화면 패턴·폼·그리드: `02-layout-and-patterns.md`
-> - 컴포넌트별 규격: `03-components.md`
+> - 레이아웃·프레임·다이얼로그·폼/그리드 서식: `02-layout-and-frame.md`
+> - 화면 패턴(9종·Grid·마스터디테일·Process·EmptyState): `03-screen-patterns.md`
+> - 컴포넌트별 규격: `04-components.md`
 > 공통 UI는 `@amxis/design-system`, 그리드는 IBSheet로 구현한다.

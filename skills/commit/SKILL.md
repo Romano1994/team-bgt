@@ -1,6 +1,6 @@
 ---
 name: commit
-description: BGT 프로젝트의 변경사항을 fe/be git 레포지토리에 커밋한다. 변경 diff를 분석해 컨벤션에 맞는 한국어 커밋 메세지를 작성하고, 민감 파일(.env/.properties 등)은 차단하며 문서(.md/.txt)는 포함 여부를 사용자에게 확인한다. 순서는 develop pull(대상 레포 전체·변경 유무 무관) → ponytail-review(필수) → 커밋으로, 변경이 없는 레포도 develop 최신을 받고 커밋 전 반드시 ponytail-review로 과잉 설계를 점검한다. Use when user says "커밋", "커밋해줘", "commit", "fe 커밋", "be 커밋", or asks to commit BGT fe/be changes.
+description: BGT 프로젝트의 변경사항을 fe/be git 레포지토리에 커밋한다. 변경 diff를 분석해 컨벤션에 맞는 한국어 커밋 메세지를 작성하고, 민감 파일(.env/.properties 등)은 차단하며 문서(.md/.txt)는 포함 여부를 사용자에게 확인한다. 순서는 develop pull(대상 레포 전체·변경 유무 무관) → ponytail-review(필수) → 커밋으로, 변경이 없는 레포도 develop 최신을 받고 커밋 전 반드시 ponytail-review로 과잉 설계를 점검한다. 리뷰 결과는 한국어로 보고하고, 지적 사항은 사용자 확인 없이 코드에 자동 반영한 뒤 재스테이징해 커밋을 계속한다. Use when user says "커밋", "커밋해줘", "commit", "fe 커밋", "be 커밋", or asks to commit BGT fe/be changes.
 ---
 
 # BGT Commit
@@ -32,9 +32,12 @@ description: BGT 프로젝트의 변경사항을 fe/be git 레포지토리에 �
 3. **가드 (스테이징 파일 직접 검사 · 번들 스크립트 호출 없음)** — `git -C <repo> diff --cached --name-only --diff-filter=ACM` 로 스테이징 목록을 얻어 아래 패턴으로 분류한다(정규식, 대소문자 무시):
    - **민감 파일**: `(^|/)\.env($|\.)` · `\.(properties|pem|key|p12|pfx|jks|keystore|pkcs12)$` · `(^|/)id_rsa$` — 하나라도 매칭되면 **즉시 중단**한다. 사용자에게 목록을 보고하고 `git restore --staged <file>` / `.gitignore` 추가를 안내한다. 절대 커밋하지 않는다.
    - **문서 파일**: `\.(md|txt)$` — 매칭이 있으면 **사용자에게 확인**한다(AskUserQuestion): "이 .md/.txt 파일을 커밋에 포함할까요?" 제외를 택하면 `git restore --staged <file>` 후 진행한다.
-4. **Ponytail 리뷰 (필수 · 생략 불가)** — Skill 툴로 `ponytail:ponytail-review` 를 실행해 스테이징 diff(`git -C <repo> diff --cached`)의 과잉 설계를 점검한다. 이 단계는 반드시 실행하며 건너뛸 수 없다.
+4. **Ponytail 리뷰 (필수 · 생략 불가 · 결과 자동 반영)** — Skill 툴로 `ponytail:ponytail-review` 를 실행해 스테이징 diff(`git -C <repo> diff --cached`)의 과잉 설계를 점검한다. 이 단계는 반드시 실행하며 건너뛸 수 없다.
+   - **리뷰 결과는 한국어로 보고한다.** 영어로 나오면 한국어로 옮겨 출력한다(`Lean already. Ship.` → `이미 충분히 간결함. 커밋 진행.`).
    - 결과가 `Lean already. Ship.` 이면 그대로 진행한다.
-   - 지적 사항이 있으면 사용자에게 보고하고 AskUserQuestion으로 확인한다: "그대로 커밋 / 수정 후 커밋". 수정을 택하면 커밋을 중단한다.
+   - **지적 사항이 있으면 사용자에게 묻지 말고 코드에 자동으로 적용한다.** 수정 후 `git -C <repo> add <수정 파일>` 로 재스테이징하고 커밋을 계속 진행한다(커밋 중단 없음).
+   - 단, 자동 적용 대상은 **이번 diff 안의 과잉 설계 제거**로 한정한다. 동작이 바뀌거나 diff 밖 파일을 건드려야 하는 지적은 적용하지 않고 그 사유만 한국어로 보고한다.
+   - 적용한 수정 목록(파일 · 무엇을 지웠는지)을 한국어 한 줄씩 보고한다.
 5. diff(`git -C <repo> diff --cached`)를 읽고 아래 컨벤션으로 메세지를 작성한다. fe/be는 변경 내용이 다르므로 **레포별로 다른 메세지**를 쓴다.
 6. `git -C <repo> commit -m "..."` 으로 커밋한다. **푸시는 하지 않는다**(사용자가 명시적으로 요청할 때만 push).
 7. 각 레포의 커밋 해시와 메세지를 보고한다.

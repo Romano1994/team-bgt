@@ -51,6 +51,7 @@ paths:
 - Scroll: **Title·Button Area 고정**, Function+Contents 합쳐서 세로 스크롤. **가로 스크롤 지양**.
 - Button Area: **Alert = 확인 1개 / Confirm = 취소·확인 2개 / 조회성 팝업은 Button Area 미노출**. 중요 버튼일수록 **우측**. 동일 의미 버튼 중복 금지.
 - 버튼명은 메시지와 의미 충돌 없게(예: "취소하시겠습니까?"에 '취소' 버튼명 지양).
+- **화면 팝업(`__dialog/`)의 구현 규약**(버튼 래퍼·순서·확정 아이콘·라벨 성격·`size` 단계값·메시지 3규칙)은 `develop/a-archetype/a-03-dialog-popup.md` §5~6(D1~D14).
 - Type: **Alert**(Pre-submit/Success) · **Confirm**(Warning/Error/Info) · **Content Dialogue**(화면전환 없이 부가정보, 컨펌 불필요 시 Button Area 미노출, 대량정보 화면만 세로 스크롤).
 
 ## 4. Contents Area — 12 Column Grid (p.19~20)

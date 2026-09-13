@@ -19,12 +19,13 @@
 12. **아키타입 필수 골격** — 마스터-디테일은 디테일 조회를 조건 state + `useUpdateEffect` 로 분리(저장·검증은 디테일 기준). 팝업은 `isOpen`/`onClose`/`onRefresh` 3-prop + 목록 진입 PK 를 숨김컬럼(`Visible:0`)으로. 폼은 searchForm/dataForm 분리 + 본문 `disabled={!isDataLoaded}`. 탭은 각 탭 `mnuUrl`. 멀티그리드는 `Promise.all` + `throwIfMultiError`. → A-02~A-06
 13. **권한 버튼** — 기능·저장은 `AuthButton` + `requiredAuthLevel={ButtonAuthLevel.WRITE}`, 조회는 `SearchButton`, 다운로드 등 조회성은 `READ`. 일반 Button 금지. → B-11
 14. **검증·피드백** — 스키마는 `@/utils` zod 헬퍼(`requiredString`/`optionalString`/`requiredDate` …) + `createDefaultValues(schema)`(수기 defaultValues 금지). `await showConfirm(...)` 반환값 반드시 분기. 메시지는 `MSG_*` 상수(하드코딩 금지). → B-22, B-12
-15. **코드 드롭다운** — SP 코드 컬럼 규약은 `CODE`/`NAME`/`NAME_ENG`, 코드명 null 금지(label null 이면 페이지 크래시). 새 코드는 `COMMON_CODE_KEYS`/`BGT_CODE_QUERY_MAP` 에 등록 후 사용. → B-08
+15. **조회조건 레이아웃** — `SearchBox` 는 전 필드 `labelAlign="left"` + **열 단위** 동일 `labelMinWidth`(화면 전체 단일값 금지), 조건을 전폭 묶음 `<Grid container item xs={12}>` 로 감싸지 않는다(한 행 `xs` 합 ≤ 12), 버튼영역은 DS 가 그리므로 자리 예약 칸·띄우기 `sx` 금지. → B-23
+16. **코드 드롭다운** — SP 코드 컬럼 규약은 `CODE`/`NAME`/`NAME_ENG`, 코드명 null 금지(label null 이면 페이지 크래시). 새 코드는 `COMMON_CODE_KEYS`/`BGT_CODE_QUERY_MAP` 에 등록 후 사용. → B-08
 
 ## 케이스 매칭 (진입점)
 
 - 화면 아키타입(단일그리드/마스터-디테일/팝업/폼/탭/멀티그리드) → `a-archetype/` (A-01~06)
-- 공통 기능(저장 CUD/코드 드롭다운/비동기 로드/첨부/권한/모달·토스트/엑셀/zod검증) → `b-feature/` (B-07~12, B-20, B-22)
+- 공통 기능(저장 CUD/코드 드롭다운/비동기 로드/첨부/권한/모달·토스트/엑셀/zod검증/조회조건 레이아웃) → `b-feature/` (B-07~12, B-20, B-22, B-23)
 - API·백엔드(신규 SP/조회 vs CUD/저장 파라미터/커서 alias) → `c-api/` (C-13~19)
 - 작업 흐름(신규 화면/ASIS 이관/에이전트 루프/파일·네이밍) → `d-workflow/` (D-16~18, D-21)
 
@@ -35,6 +36,7 @@
 > **글롭 세분화 현황** — 대부분은 여전히 `bgt-fe/src/**/*.{ts,tsx}`(A·B) / `bgt-be/**/*.{java,xml}`(C) 로 넓게 잡혀 있다(범용 `index.tsx`/`GridBox.tsx`/Service 파일에 여러 관심사가 섞여 있어, 파일명으로 좁히면 MUST 규칙이 조용히 안 뜨는 게 더 위험하기 때문 — 이 프로젝트는 그런 조용한 누락으로 실제 버그를 겪은 이력이 있다). 아래 5개만 파일명·폴더 컨벤션이 뚜렷해 안전하게 좁혔다:
 > - B-10(파일첨부) → `*Atch*`/`*Uploader*`/`*FileAttach*`/`FileGridBox.tsx`
 > - B-22(zod 검증) → `__types.ts`/`__type.ts`
+> - B-23(조회조건 레이아웃) → `*SearchBox.tsx`
 > - A-03(팝업) → `__dialog/**`/`__popup/**`
 > - A-05(탭) → `__tabs/**`
 > - C-19(커서 alias) → `*.xml`(resultMap) + `**/model/*.java`(identity 핀 대상 VO)

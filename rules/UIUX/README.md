@@ -6,7 +6,8 @@
 
 | | 역할 |
 | --- | --- |
-| **`docs/pmx-uiux-audit/rules/`** | **정본.** 완성 화면 점검(감사)용. 체크리스트 47항목(`uiux-checklist.csv`) · 표준가이드 182 세부규칙(`uiux-standard-rules.md`) · 가이드 목업 65장(`guide-pages/`) · 공통귀속 목록(`common-owned.json`). 점검 절차는 `uiux-audit-screens` 스킬. |
+| **`docs/pmx-uiux-audit/rules/`** | **정본.** 완성 화면 점검(감사)용. 체크리스트 47항목(`uiux-checklist.csv`) · 표준가이드 182 세부규칙(`uiux-standard-rules.md`) · 가이드 목업 65장(`guide-pages/`) · 공통귀속 목록(`common-owned.json`) · **룰북 발췌 `rulebook/`**(조회조건 §5-1 · 팝업 D1~D14). 점검 절차는 `uiux-audit-screens` 스킬. |
+| `docs/pmx-uiux-audit/rules/rulebook/` | 조회조건·팝업의 **최신 정본**(2026-09-11 / 2026-09-04 판). 182 세부규칙은 2026-07 추출본이라 두 영역에서 어긋나면 **룰북이 이긴다**. 구현 규칙은 `develop/b-feature/b-23`·`develop/a-archetype/a-03` §5~6 에 옮겨져 있다. |
 | **`.claude/rules/UIUX/`** (이 폴더) | **코딩용 압축본.** 정본을 개발 중 강제 가능한 MUST/규격으로 줄인 것. |
 | `docs/PMX-UI표준가이드_통합정리.md` | 서술형 전체본. 색상·아이콘·스페이싱·타이포(p.7~9, p.21~22)는 정본 audit 추출 범위 밖이라 **여기가 유일 근거**. |
 | `docs/uiux_표준/PMX-UIX-AN-UI표준가이드-v1.0.pdf` | 원본 PDF(89p, 10p 단위 분할본 동봉). |

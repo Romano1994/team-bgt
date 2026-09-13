@@ -30,6 +30,7 @@ paths:
 - 순서: **초기화 > 조회 > 기능버튼 > 저장.** 저장·연관 버튼은 조회 버튼 **우측**이며 **구분선(세로 divider)** 으로 분리.
 - 조회 요건 없이 저장만 필요한 화면은 저장·연관 버튼만(저장이 그룹 맨 우측).
 - 색상: **조회 = Normal Contained** / **저장 = Primary Contained** / **취소·임시저장 = Normal Outlined** / **새로고침 = 원형 아이콘 버튼(조회 바로 좌측)**.
+- 버튼영역은 **DS `SearchArea` 가 직접 그린다.** 버튼 몫으로 빈 칸을 예약하거나 DS 내부를 겨냥한 `sx` 로 위치를 보정하지 않는다. → `develop/b-feature/b-23` §4
 
 ## Title Area
 - **Page Title**: 선택 메뉴명과 일치. 길어도 **말줄임 금지**. 즐겨찾기(별) 버튼(불필요 시 제외).
@@ -57,6 +58,7 @@ paths:
 
 ## Datepicker (p.70~71)
 - **Single Date** `YYYY.MM.DD` / **Date Range** `YYYY.MM.DD ~ YYYY.MM.DD`.
+- 조회조건에서 `width="100%"` 는 **기간(`PeriodPicker`) 전용**. 단일 `Form.DatePicker` 에 주면 컨테이너만 늘어나 인풋 뒤에 빈 흰 칸이 생긴다.
 - 캘린더 팝업 상단 `YYYY년 MM월` + `<`/`>` 네비게이션.
 - Variation 3종(날짜 / 월 / 년도 선택) — **필드 표시 포맷은 항상 `YYYY.MM.DD` 유지.**
 
@@ -71,6 +73,7 @@ paths:
 ## Dropdown Field (p.75)
 - **Placeholder 필수.**
 - **Single**: 선택값 Text 1건 표시. **Multi**: 선택값 **Chip**으로 표시, Chip X·목록 해제로 제거, Focus 시 전체삭제 버튼(optional).
+- 다중선택은 **태그형 `DropdownField multiple`** 로 구현한다. 체크박스를 바둑판처럼 늘어놓지 않는다.
 - 옵션 5개 이하면 Radio 우선.
 
 ## Helper Text (p.76)

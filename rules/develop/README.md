@@ -40,6 +40,7 @@
 | B-12 | [모달/토스트](./b-feature/b-12-modal-toast.md) | Alert/Confirm/Loading/Toast |
 | B-20 | [엑셀 다운로드/업로드](./b-feature/b-20-excel-download-upload.md) | downloadGridExcel(fileName=title), useAIP 업로드 |
 | B-22 | [zod 검증 표준](./b-feature/b-22-zod-validation.md) | utils/zod.ts 헬퍼, createSearchSchema/createDataSchema, createDefaultValues |
+| B-23 | [조회조건(SearchArea) 레이아웃](./b-feature/b-23-search-area-layout.md) | labelAlign=left + 열 단위 labelMinWidth, 전폭 묶음 금지, 유형별 열수 |
 
 ### C. API / 백엔드 (`c-api/`)
 | # | 케이스 | 핵심 |

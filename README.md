@@ -15,7 +15,10 @@ team-bgt/
 ├── agents/              # 구현·검증 서브에이전트
 ├── commands/            # 슬래시 명령
 │   ├── setup-cc         # 터미널 'cc' → claude 별칭 설치
-│   └── setup-rules      # rules/ → 프로젝트 .claude/rules/ 복사·갱신
+│   ├── setup-rules      # rules/ → 프로젝트 .claude/rules/ 복사·갱신
+│   └── setup-reference-pic # tools/reference-pic 빌드·설치(시작 프로그램 등록)
+├── tools/
+│   └── reference-pic/   # 화면에 그려 입력창에 붙이는 트레이 앱 소스(복제본 — 원본은 reference-pic 레포)
 ├── rules/               # 개발·UIUX 표준 배포 원본(로더 미인식 — setup-rules 로 프로젝트에 복사)
 │   ├── develop/         #   00-core(상시) + A화면/B기능/C API/D워크플로 케이스
 │   └── UIUX/            #   00-core(상시) + 01 토큰/02 레이아웃/03 화면패턴/04 컴포넌트
@@ -67,6 +70,9 @@ team-bgt/
 |---|---|
 | `/setup-cc` | 터미널에서 `cc`만 입력하면 `claude`가 실행되도록 PowerShell 프로필($PROFILE, 유저 scope)에 별칭을 설치(멱등). 팀원이 1회 실행. Windows/PowerShell 전용. |
 | `/setup-rules` | `rules/`(개발·UIUX 표준)를 **현재 프로젝트**의 `.claude/rules/` 로 복사·갱신(멱등, 덮어쓰기). 프로젝트마다 1회 + 플러그인 업데이트 후 재실행. |
+| `/setup-reference-pic` | `tools/reference-pic` 를 빌드해 `%LOCALAPPDATA%\reference-pic` 에 설치하고 시작 프로그램에 등록(멱등, 로그인 시 자동 실행). 플러그인 업데이트 후 재실행해야 새 버전 반영. `uninstall` 인자로 해제. Windows 전용. |
+
+> `tools/reference-pic/` 는 reference-pic 레포의 **복제본**이다. 여기서 고치지 말고 원본에서 고친 뒤 다시 복사해 PR 한다.
 
 ### rules
 
@@ -112,6 +118,8 @@ claude --plugin-dir ./team-bgt
 /plugin marketplace add Romano1994/team-bgt
 /plugin install team-bgt@team-bgt
 ```
+
+자동 업데이트는 서드파티 마켓이라 기본 꺼짐이다. `/plugin` → Marketplaces → `team-bgt` → **Enable auto-update** 로 켜거나, settings.json 에 `team-settings.example.json` 처럼 `"autoUpdate": true` 를 넣는다. 세션 첫 메시지 후 백그라운드로 받고, 다음 세션(또는 `/reload-plugins`)부터 적용된다.
 
 ## Codex CLI 설치
 

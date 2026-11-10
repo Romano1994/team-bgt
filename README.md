@@ -121,6 +121,8 @@ claude --plugin-dir ./team-bgt
 
 자동 업데이트는 서드파티 마켓이라 기본 꺼짐이다. `/plugin` → Marketplaces → `team-bgt` → **Enable auto-update** 로 켜거나, settings.json 에 `team-settings.example.json` 처럼 `"autoUpdate": true` 를 넣는다. 세션 첫 메시지 후 백그라운드로 받고, 다음 세션(또는 `/reload-plugins`)부터 적용된다.
 
+메뉴에 **Enable auto-update** 가 없으면 Claude Code 자체 자동 업데이트가 꺼진 상태다(`~/.claude.json` 의 `"autoUpdates": false` 또는 `DISABLE_AUTOUPDATER` 등 — `/doctor` 에 이유가 나온다). 이때는 플러그인 자동 업데이트도 통째로 꺼지고 `"autoUpdate": true` 도 무시되므로, settings.json `env` 에 `"FORCE_AUTOUPDATE_PLUGINS": "1"` 을 함께 넣는다(Claude Code 업데이트는 꺼진 채 플러그인만 켜짐).
+
 ## Codex CLI 설치
 
 GitHub repo를 Codex marketplace로 등록한 뒤 플러그인을 설치한다. 이 repo의 `.agents/plugins/marketplace.json`이 `team-bgt` marketplace를 정의한다.

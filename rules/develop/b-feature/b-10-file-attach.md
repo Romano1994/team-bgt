@@ -25,7 +25,6 @@ cst/cst-fe/src/pages/insp/insp-rqdm/__components/DocumentForm.tsx   # cst 안정
 ```
 - 컴포넌트: `FileUploaderDext5`, `AuthUploader` (`@amxis/pms-com` / `@/components/common`)
 - 훅: `useDext5Uploader` → `uploaderProps` (`ref`, `maxFileCount`, `onSaveTargetDetected`)
-- BE: `bgt-be/.../wsf/file/controller/FileController.java`, `FileService`
 
 ## 핵심 개념
 - **`atchFileGrId`** (첨부 그룹 ID): 레코드가 보관하는 파일 묶음 키. 신규면 비어 있고, 저장 시 업로더가 발급/연결한 grId 를 레코드에 저장.
@@ -49,7 +48,7 @@ cst/cst-fe/src/pages/insp/insp-rqdm/__components/DocumentForm.tsx   # cst 안정
 
 ## 코드 예제
 
-### 파일 첨부 (편집/읽기 분기) — cst `insp/insp-rqdm/__components/DocumentForm.tsx:181`
+### 파일 첨부 (편집/읽기 분기) — cst `insp/insp-rqdm/__components/DocumentForm.tsx` `FileUploaderDext5`
 ```tsx
 {isEditable ? (                              // cst 는 편집상태(editingPages)로 파생 — BGT 는 isFileEditable
   <FileUploaderDext5

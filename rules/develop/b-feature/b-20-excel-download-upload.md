@@ -18,7 +18,7 @@ paths:
 
 ## 참고 원본 (복사 기반)
 ```
-bgt-fe/src/utils/grid.ts:538           # downloadGridExcel (그리드 → 엑셀, 공통 util 이라 bgt 유지)
+bgt-fe/src/utils/grid.ts               # downloadGridExcel (그리드 → 엑셀, 공통 util 이라 bgt 유지)
 bgt-fe/src/hooks/pms/useAIP.ts         # decrypt / download / uploadExcel (엑셀 업로드·복호화)
 bgt-fe/src/hooks/useDextUploader.ts    # Dext5 업로드 UI(파일선택/업로드/롤백)
 cst/cst-fe/src/pages/cm/cstrn-type/__component/GridBoxMst.tsx:45  # 다운로드 버튼 실사용 (cst 안정)
@@ -40,7 +40,7 @@ cst/cst-fe/src/pages/cm/cstrn-type/__component/GridBoxMst.tsx:45  # 다운로드
 ### 1. `useAIP` 훅 호출
 - 복호화만: `const blob = await decrypt(file)`.
 - 업로드+파싱: `uploadExcel(file, { headerIndex, useIndexAsKey })` → 배열/객체 반환.
-- 파일 선택은 `browseFile('.xls,.xlsx')`(`@/utils/common`) 또는 `useDextUploader` UI.
+- 파일 선택은 `browseFile('.xls,.xlsx')`(`@/utils/common`) 또는 `useDext5Uploader` UI.
 
 ### 2. 검증
 - `yarn build:local` + `npx tsc --noEmit`.
@@ -60,7 +60,7 @@ const headerButton: IBSheetGridHeaderRightMember[] = [
 ];
 ```
 
-### 다운로드 옵션 — `utils/grid.ts:538`
+### 다운로드 옵션 — `utils/grid.ts` `downloadGridExcel`
 ```tsx
 // options 는 선택. 기본값:
 //   mode = 'displayed'  (보이는 대로. 'raw' 면 Width/Align 제거 후 ASIS 형태)

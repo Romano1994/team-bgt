@@ -1,6 +1,6 @@
 ---
 name: migrate-feature-asis-to-bgt
-description: ASIS 화면(PMS/TEMS)의 특정 기능을 이미 존재하는 BGT TOBE 화면에 기능 단위로 이식. migrate-asis-to-bgt의 후속으로 사용하며, 화면은 이미 BGT에 존재하지만 특정 기능이 누락되거나 추가 수정이 필요한 경우에 사용한다. `bgt-be/docs/sp`의 배포 SP 문서를 확인해 SP와 컬럼명을 맞춰 실제 SP 호출로 구현한다. Use when user wants to port a specific feature (not a whole screen) from ASIS to an existing BGT screen, or mentions "기능 이식", "기능 마이그레이션", "기능 옮겨", "화면에 기능 추가".
+description: ASIS 화면(PMS/TEMS)의 특정 기능을 이미 존재하는 BGT TOBE 화면에 기능 단위로 이식. migrate-asis-to-bgt의 후속으로 사용하며, 화면은 이미 BGT에 존재하지만 특정 기능이 누락되거나 추가 수정이 필요한 경우에 사용한다. 배포 SP 본문(DB `ALL_SOURCE`)을 확인해 SP와 컬럼명을 맞춰 실제 SP 호출로 구현한다. Use when user wants to port a specific feature (not a whole screen) from ASIS to an existing BGT screen, or mentions "기능 이식", "기능 마이그레이션", "기능 옮겨", "화면에 기능 추가".
 ---
 
 # ASIS → BGT 기능 단위 마이그레이션
@@ -40,21 +40,21 @@ description: ASIS 화면(PMS/TEMS)의 특정 기능을 이미 존재하는 BGT T
 
 ### Phase 3: SP·컬럼명 확인 + API 계약 정의
 
-`bgt-be/docs/sp`의 배포된 SP 패키지 문서에서 이 기능에 해당하는 SP를 찾아 데이터 연동을 설계한다.
+배포 SP 본문(DB `ALL_SOURCE` 조회 또는 `docs/migration/<화면>/_sp_*.sql`)에서 이 기능에 해당하는 SP를 찾아 데이터 연동을 설계한다.
 
 **SP 매칭 원칙:**
-- `bgt-be/docs/sp` 문서에서 기능에 매칭되는 SP를 찾아 CALL 시그니처(파라미터 순서·IN/OUT·커서)를 확정한다. 임의로 인자를 추가하지 않는다(불일치 시 ORA-06550).
+- 배포 SP 본문에서 기능에 매칭되는 SP를 찾아 CALL 시그니처(파라미터 순서·IN/OUT·커서)를 확정한다. 임의로 인자를 추가하지 않는다(불일치 시 ORA-06550).
 - 화면에 표시·전송할 필드/코드 구조를 SP 문서의 커서 컬럼 alias(예: `CODE`/`NAME`/`NAME_ENG`)와 정확히 맞춘다 — alias가 다르면 매핑이 null이 된다.
 - API URL은 BGT 규칙(`/v1/{L1}/{L2}/{L3}`)으로 정의한다.
-- `bgt-be/docs/sp`에 매칭되는 SP 문서가 없으면 임의 구현하지 말고 사용자에게 확인한다.
+- `ALL_SOURCE`에 매칭되는 SP가 없으면 임의 구현하지 말고 사용자에게 확인한다.
 
 ### Phase 4: BGT 구현 (BE + FE)
 
-BE는 `bgt-be/docs/Server.md`를, FE는 `bgt-fe/src/docs/ko/Intro.md` 및 하위 문서를 먼저 읽는다.
+BE는 `bgt-be/docs/Server.md`를, FE는 `bgt-fe/src/docs/ko/Index.md` 및 하위 문서를 먼저 읽는다.
 
 **BE** (Phase 3에서 매칭한 SP가 있을 때):
 - Model → Repository → Service → Controller 순서로 구현한다.
-- XML `CALL` 구문은 `bgt-be/docs/sp`의 배포 SP 시그니처와 정확히 일치시키고, resultMap/Model 컬럼명은 SP 커서 컬럼 alias와 맞춘다.
+- XML `CALL` 구문은 배포 SP 시그니처(`ALL_SOURCE`)와 정확히 일치시키고, resultMap/Model 컬럼명은 SP 커서 컬럼 alias와 맞춘다.
 
 **FE:**
 - 기존 BGT 화면 패턴을 최우선으로 따른다 (`bgt-fe` → `cst` 순으로 참고)
@@ -79,7 +79,7 @@ BE는 `bgt-be/docs/Server.md`를, FE는 `bgt-fe/src/docs/ko/Intro.md` 및 하위
 - 해당 케이스의 "흔한 실패와 가드"를 체크리스트로 삼아 위반 여부를 점검한다. (예: 코드 드롭다운 null label 가드, 조회 조건 변경 시 그리드 초기화, 그리드 저장 시 삭제행 포함 수집 등)
 
 **2) 기능 동등성 / 사이드 이펙트 검증**
-- [ ] SP CALL 시그니처·응답 컬럼 매핑이 `bgt-be/docs/sp` 문서와 일치하는가 (커서 alias ↔ 필드)
+- [ ] SP CALL 시그니처·응답 컬럼 매핑이 배포 SP 본문(`ALL_SOURCE`)과 일치하는가 (커서 alias ↔ 필드)
 - [ ] 조회 결과가 ASIS 화면과 동일한 항목·명칭·구조로 표시되는가
 - [ ] 팝업/선택 UI가 ASIS와 동일하게 동작하는가 (단일/다중 선택, 전체 선택 등)
 - [ ] 선택값이 폼 상태에 올바르게 반영되는가

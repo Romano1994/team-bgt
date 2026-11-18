@@ -26,7 +26,7 @@ bgt-fe/src/pages/template/tabs/
 
 ## 레시피
 
-### 1. AuthTabs 사용 — `template/tabs/index.tsx:49`
+### 1. AuthTabs 사용 — `template/tabs/index.tsx` `<AuthTabs>`
 - `@/components/auth` 의 `AuthTabs` 에 `mnuId`, `tabIndex`, `tabs`, `onChange` 전달.
 - 각 탭 객체는 `content` 와 **`mnuUrl` (권한 체크용)** 을 가진다. `mnuUrl` 은 메뉴/프로그램 관리에 등록된 URL 과 일치해야 함.
 
@@ -41,7 +41,7 @@ bgt-fe/src/pages/template/tabs/
 
 ## 코드 예제
 
-### 탭 정의 (mnuUrl 필수) — `template/tabs/index.tsx:25`
+### 탭 정의 (mnuUrl 필수) — `template/tabs/index.tsx` `tabs`
 ```tsx
 const tabs = [
   {
@@ -57,7 +57,7 @@ const tabs = [
 ];
 ```
 
-### 탭 변경 + 조건 전달 — `template/tabs/index.tsx:41`
+### 탭 변경 + 조건 전달 — `template/tabs/index.tsx` `handleTabChange`
 ```tsx
 function handleTabChange(index: number, selectedCondition?: SecondSearchForm) {
   setTabIndex(index);

@@ -27,7 +27,7 @@ description: standard-verify가 만든 docs/verifier 보고서를 읽어 표준 
 FE 묶음과 BE 묶음은 독립적이므로 **한 메시지에서 병렬** 디스패치한다. 한쪽이 비면 그쪽은 생략한다.
 
 - **`bgt-fe-implementer`** — FE/UIUX 항목. 각 항목의 `파일:줄`·문제·제안을 그대로 전달한다. 보고서에 적힌 최소 수정만 하고 범위 밖은 손대지 말 것을 명시. 완료 후 자체 게이트(`yarn build:local` + `npx tsc --noEmit`) 통과.
-- **`bgt-be-implementer`** — BE 항목. `docs/sp` 배포 SP 시그니처·커서 alias 기준으로 고친다(alias 통일은 SP↔resultMap↔VO↔JSON 키를 한 값으로). 완료 후 자체 게이트(`gradlew.bat test`) 통과.
+- **`bgt-be-implementer`** — BE 항목. 배포 SP(`ALL_SOURCE`) 시그니처·커서 alias 기준으로 고친다(alias 통일은 SP↔resultMap↔VO↔JSON 키를 한 값으로). 완료 후 자체 게이트(`gradlew.bat test`) 통과.
 
 **수정 불가 가드**: UIUX `③`(라이브 확인 필요)처럼 **소스만으로 판정·수정 불가한 항목은 임의로 바꾸지 않는다**. implementer는 해당 항목을 `수정 불가—라이브 확인 필요`로 반환한다. `②`(soft 권장)는 보고서 제안대로 반영하되 판단이 필요하면 근거를 남긴다.
 

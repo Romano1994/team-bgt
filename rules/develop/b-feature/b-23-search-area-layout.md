@@ -79,7 +79,7 @@ paths:
 | 3단 연동 콤보 | **줄이지 않는다** — 현행 유지 |
 
 > **전제 주의** — 이 조견표는 룰북이 **DS 0.0.88**(버튼영역이 조건 Grid 의 마지막 item)에서 1열 폭 131.8px(1617 창)로 산출한 값이다.
-> **BGT 런타임은 호스트 com-fe 의 DS 0.0.86** 이고(`bgt-fe/yarn.lock`·`com/com-fe/node_modules` 모두 0.0.86 — `bgt-fe/package.json` 의 0.0.88 은 미반영), 0.0.86 `SearchArea` 는 버튼영역이 **조건 Grid 밖 flex 형제**라 조건 Grid 폭이 버튼 폭만큼 좁다.
+> **BGT 런타임 DS 는 호스트 com-fe 의 버전**을 따르므로 `com/com-fe/node_modules/@amxis/design-system`·`bgt-fe/package.json` 에서 확인한다(룰북 산출 기준 0.0.88 과 다를 수 있다). DS 0.0.86 의 `SearchArea` 는 버튼영역이 **조건 Grid 밖 flex 형제**라 조건 Grid 폭이 버튼 폭만큼 좁았다.
 > 열수는 출발점으로 쓰되 **1617 창 실측으로 확정**한다. 값이 잘리거나 여백이 과하면 조견표보다 실측이 우선이다.
 
 ### 4. 버튼영역 — 배선하지 않는다

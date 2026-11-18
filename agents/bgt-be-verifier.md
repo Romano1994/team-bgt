@@ -18,10 +18,10 @@ model: inherit
 
 `.claude/rules/develop/00-core.md`의 BE 항목(#7 SP호출 · #8 커서매핑 · #9 JSON키)과, 매칭되는 C-api 문서(C-13~15, C-19)를 읽고 범위 코드와 대조한다.
 
-1. **SP 커서 alias 정합 (C-19)** — resultMap `column`이 `docs/sp` 배포 SP 커서 SELECT alias와 1:1인가. 어긋나면 그 필드만 조용히 null → **BLOCKER**. 커서 미반환 컬럼을 매핑한 phantom 필드도 지적.
+1. **SP 커서 alias 정합 (C-19)** — resultMap `column`이 배포 SP(`ALL_SOURCE`) 커서 SELECT alias와 1:1인가. 어긋나면 그 필드만 조용히 null → **BLOCKER**. 커서 미반환 컬럼을 매핑한 phantom 필드도 지적.
 2. **identity 핀 (C-19)** — 응답 VO의 '소문자1+대문자' 필드(`mSupply`/`rShare`/`dContr` 등)에 `@JsonProperty("동일명")`이 있는가. 누락 시 게터 망글링으로 JSON 키 어긋남 → **BLOCKER**.
 3. **커서 OUT** — 조회 OUT은 `CURSOR`→resultMap **만**(resultType 쓰면 매퍼 파싱 실패 → 앱 기동 불가) → **BLOCKER**.
-4. **SP 시그니처 (C-15)** — XML CALL 인자 순서/개수/모드가 `docs/sp` 배포 시그니처와 일치하는가. **런타임 대조 불가**(ORA-06550은 실행 시점) → 정적으로 개수/이름만 대조하고 판정에 "라이브 미검증" 명시.
+4. **SP 시그니처 (C-15)** — XML CALL 인자 순서/개수/모드가 배포 SP 시그니처(`ALL_SOURCE`)와 일치하는가. **런타임 대조 불가**(ORA-06550은 실행 시점) → 정적으로 개수/이름만 대조하고 판정에 "라이브 미검증" 명시.
 5. **Tx/공통 (C-14)** — 조회 `readOnly=true`, CUD `rollbackFor` + 행마다 `ProcedureUtil.checkResult`, 저장 전 `CommonDtoUtil.initBaseFields`.
 6. **과잉설계 (ponytail 렌즈)** — 구현 하나뿐인 추상화/팩토리, 재발명한 표준 유틸, 안 쓰는 유연성. 각 지적 "지울 것 → 대체" 한 줄. 가능하면 `Skill`로 `ponytail:ponytail-review` 사용.
 
@@ -41,4 +41,4 @@ model: inherit
 ```
 
 - 심각도: `BLOCKER`(조용한 null/앱 기동 실패 — alias 불일치, resultType 커서, identity 핀 누락) / `WARN`(동작하나 규칙 위반) / `INFO`(과잉설계·스타일). **BLOCKER 1개 이상 → FAIL.**
-- 지적은 반드시 `파일:줄`과 근거(규칙 번호/`docs/sp` alias)를 붙인다. 추측 금지, 확인한 것만. 추측이면 `(추정)` 표기.
+- 지적은 반드시 `파일:줄`과 근거(규칙 번호/배포 SP alias)를 붙인다. 추측 금지, 확인한 것만. 추측이면 `(추정)` 표기.

@@ -6,7 +6,7 @@ paths:
 # B-07. 그리드 저장(CUD)
 
 > **강제 규칙 (MUST)** — 이 케이스로 작업할 때 반드시 지킨다.
-> - 저장 행 수집은 `getGridJsonData`/`getGridSaveJsonData`(=`getSaveJson`→`getRowsByStatus('Added,Changed,Deleted')`)로 삭제행까지 모아 `sState`→`flagCd` `C`/`U`/`D` 로 전송한다.
+> - 저장 행 수집은 `getGridJsonData`/`getGridSaveJsonData`(둘 다 IBSheet `getSaveJson` 래퍼, saveMode 2=Added/Changed/Deleted)로 삭제행까지 모아 `sState`→`flagCd` `C`/`U`/`D` 로 전송한다.
 > - `getGridData`(=`getDataRows`)는 삭제행을 누락하므로 저장 수집에 쓰지 않는다.
 > - 필수값 검증은 `flagCd === 'D'` 행을 skip 한다(삭제행은 값이 비어도 됨).
 > - 인라인 수정/삭제는 확인 없이 마킹(`deleteGridRows`)하고, 저장 시 `MSG_SAVE_CONFIRM` 한 번 → 성공 후 재조회로 마무리(낙관적 갱신 금지). 별도 즉시 삭제 API만 `MSG_DELETE_CONFIRM`+`MSG_DELETE_SUCCESS`.
@@ -56,8 +56,8 @@ if (!isGridDataChanged(gridName)) {
 
 ### 2. 저장 데이터 수집 (삭제행 포함)
 - `getGridJsonData<T>(gridName)` 또는 `getGridSaveJsonData<T>(gridName, options)` 사용.
-- 내부적으로 `getSaveJson()` → `getRowsByStatus('Added,Changed,Deleted')` 기반이라 삭제행이 포함된다.
-- 검색해보면: `bgt-fe/src/utils/grid.ts:255`(`getGridSaveJsonData`), `:1097`(`getRowsByStatus('Added,Changed,Deleted')`), `:1243`(`toGridSavePayload` → `flagCd`).
+- 둘 다 IBSheet `getSaveJson()`(saveMode 2=Added/Changed/Deleted) 래퍼라 삭제행이 포함된다.
+- 검색해보면: `bgt-fe/src/utils/grid.ts` 의 `getGridSaveJsonData`·`getGridJsonData`, `toGridSavePayload`(→ `flagCd`). 변경 여부 판정은 `isGridDataChanged`(`getRowsByStatus('Added,Changed,Deleted')`).
 
 ### 3. 검증
 - 필수값/중복 검사. 단, **`flagCd === 'D'` 인 행은 검증 skip** (삭제행은 값이 비어도 됨).
@@ -72,9 +72,9 @@ processResponse(response, { successMessage: MSG_SAVE_SUCCESS, onSuccess: () => f
 
 ## 코드 예제
 
-### 삭제행 포함 수집 + 삭제행 검증 skip — cst `at/attendancemnl` (`index.tsx:114`·`__utils/__function.ts:73`)
+### 삭제행 포함 수집 + 삭제행 검증 skip — cst `at/attendancemnl` (`index.tsx` `fetchSave`·`__utils/__function.ts` `hasEmptyTime`)
 ```tsx
-// index.tsx:214 — 변경검사→검증→확인→저장→재조회
+// index.tsx handleSave — 변경검사→검증→확인→저장→재조회
 const handleSave = async () => {
   if (!checkSaveValid()) return;                 // 내부에서 삭제행 skip 검증(아래)
   const isConfirm = await showConfirm(MSG_SAVE_CONFIRM);
@@ -82,7 +82,7 @@ const handleSave = async () => {
   fetchSave();
 };
 
-// index.tsx:114 — getGridJsonData(name, 2): 저장 대상(추가/수정/삭제=삭제행 포함) 수집
+// index.tsx fetchSave — getGridJsonData(name, 2): 저장 대상(추가/수정/삭제=삭제행 포함) 수집
 const fetchSave = async () => {
   const gridName = getGridName(GRID_ID.master);
   const updData = getGridJsonData<AtAttendanceMnlListGridRow>(gridName, 2);
@@ -93,13 +93,13 @@ const fetchSave = async () => {
   });
 };
 
-// __utils/__function.ts:73 — 삭제행은 필수값 검증 skip (수집 전이라 sState==='D')
+// __utils/__function.ts hasEmptyTime — 삭제행은 필수값 검증 skip (수집 전이라 sState==='D')
 export function hasEmptyTime(items: AtAttendanceMnlListGridRow[]): boolean {
   return items.some((item) => isEmptyString(item.frstInptTm) && item.sState !== 'D');
 }
 ```
 
-### sState → flagCd 매핑 — `bgt-fe/src/utils/grid.ts:1243`
+### sState → flagCd 매핑 — `bgt-fe/src/utils/grid.ts` `toGridSavePayload`
 ```ts
 export function toGridSavePayload<T extends { sState?: GridRowStatus }, P>(items: T[]): P {
   const savePayload = items.map((item) => {

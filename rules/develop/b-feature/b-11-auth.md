@@ -67,7 +67,7 @@ const headerButton = wrapGridButtons(gridName, [
 ]);
 ```
 
-### 탭 권한 — `template/tabs/index.tsx:25`
+### 탭 권한 — `template/tabs/index.tsx` `tabs`
 ```tsx
 { content: <FirstTab .../>, mnuUrl: `${MODULE_CODE}/template/tabs/first` }
 ```

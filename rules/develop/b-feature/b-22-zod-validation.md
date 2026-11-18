@@ -38,7 +38,7 @@ bgt-fe/src/pages/template/form/__utils/__types.ts    # createSearchSchema + crea
 | `requiredLangCode(msg?)` | `optionalLangCode()` | 다국어 코드 |
 | — | `createDefaultValues(schema)` | 스키마 → RHF 기본값 자동 생성 |
 
-> 설계 규칙: `optional*` 헬퍼는 `preprocess` 로 `''`/`null` → `undefined` 정규화 후 optional. 그래서 빈 입력이 서버에 `''` 로 새지 않는다.
+> 설계 규칙: `optionalNumber`/`optionalDate`/`optionalPattern` 은 `''`/`null` → `undefined`, `optionalString` 은 `null` 만 `undefined` 로 바꾼다(빈 문자열은 `''` 로 전송된다).
 
 ## 레시피
 

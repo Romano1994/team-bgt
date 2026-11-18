@@ -14,7 +14,7 @@
 4. 코드 수정 범위는 `bgt-fe`, `bgt-be` 로 제한한다.
 5. 검증은 각 문서의 "검증 방법" 절을 따른다. (FE: `yarn build:local` + `npx tsc --noEmit`, BE: `gradlew.bat test`)
 
-> 세션 시작 시 필독: `bgt-fe/src/docs/ko/Intro.md`, `bgt-be/docs/Server.md`.
+> 세션 시작 시 필독: `bgt-fe/src/docs/ko/Index.md`, `bgt-be/docs/Server.md`.
 > 이 케이스 문서들은 그 기본 가이드를 **상황별 레시피로 구체화**한 것이다.
 
 ## 목차

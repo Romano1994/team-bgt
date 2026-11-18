@@ -25,7 +25,7 @@ paths:
 
 ## 코드 예제
 
-### 1회 초기화 — `template/default/__components/GridBox.tsx:59`
+### 1회 초기화 — `template/default/__components/GridBox.tsx` `initGrid` effect
 ```tsx
 useEffect(() => {
   initGrid({ id, ref: gridRef, data, isInit });

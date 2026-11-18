@@ -32,7 +32,7 @@ Phase 0~8 장기 오케스트레이션이라 중간에 컨텍스트가 compactio
 
 > **우선순위**: 하니스 기본 compact 전략이 있더라도, 이 스킬 실행 중에는 아래 compact 전략을 우선 적용한다.
 
-- **무거운 읽기는 서브에이전트에 가둔다.** ASIS 분석·`docs/sp`·`cst` 템플릿 등 대량 읽기는 분석/구현 서브에이전트(`bgt-fe-implementer`·`bgt-be-implementer`) 격리 컨텍스트에서 수행하고, 메인에는 압축 요약 + API 계약(엔드포인트·VO camelCase 키·SP alias↔키 맵)만 반환한다. 메인 컨텍스트에 원본 파일을 덤프하지 않는다.
+- **무거운 읽기는 서브에이전트에 가둔다.** ASIS 분석·배포 SP 본문(`ALL_SOURCE`)·`cst` 템플릿 등 대량 읽기는 분석/구현 서브에이전트(`bgt-fe-implementer`·`bgt-be-implementer`) 격리 컨텍스트에서 수행하고, 메인에는 압축 요약 + API 계약(엔드포인트·VO camelCase 키·SP alias↔키 맵)만 반환한다. 메인 컨텍스트에 원본 파일을 덤프하지 않는다.
 - **진행 원장(`docs/migration/{화면명}/_progress.md`)을 각 Phase 종료 시 갱신한다.** 기록 항목: (a) 현재 Phase, (b) 확정된 API 계약, (c) 생성/변경 파일 목록, (d) 미해결 불일치 표(Phase 4~6), (e) 분석 문서·보고서 파일 경로, (f) **결정 로그**(Phase 2.5 형식 — 재개·자동 결정의 단일 근거).
 - **compaction 후 재개**: 먼저 `_progress.md` + 분석 문서를 다시 읽어 현재 Phase·API 계약·미해결 항목을 복원하고, **이미 통과한 Phase는 재실행하지 않는다.**
 
@@ -147,7 +147,7 @@ Phase 2.5 합의(및 BE 인계) 완료 후 세 에이전트를 동시에 시작�
 - **com 서버 가동 중(기본)**: FE는 `yarn build:local` + `npx tsc --noEmit`로 컴파일을 검증하고, 기능 검증은 Phase 4의 Playwright 라이브 화면으로 수행한다(별도 TDD/vitest 불필요). BE는 `gradlew.bat test`(JUnit, DB 없이 standalone MockMvc) red-green 루프를 유지한다.
 - **com 서버 미가동**: 라이브 검증이 불가하므로 FE도 `/superpowers:test-driven-development`(red-green-refactor)로 대체 검증한다. 테스트 러너(vitest)가 미설치면 먼저 설치한다(공개 npm 레지스트리). 구동 불가 시 그 사실을 보고하고 `yarn build:local` + `npx tsc --noEmit`로 최소 검증한다.
 
-**FE 에이전트 (`bgt-fe-implementer`)** — `bgt-fe/src/docs/ko/Intro.md` 및 하위 문서를 먼저 읽는다.
+**FE 에이전트 (`bgt-fe-implementer`)** — `bgt-fe/src/docs/ko/Index.md` 및 하위 문서를 먼저 읽는다.
 - `bgt_path`에 화면 파일 생성. `callApi` 유틸로 API 호출.
 - BGT 기존 패턴 우선, 없으면 `cst`에서 가져와 BGT에 맞게 수정.
 - ASIS 기능 추가/삭제 금지.
@@ -159,9 +159,9 @@ Phase 2.5 합의(및 BE 인계) 완료 후 세 에이전트를 동시에 시작�
 
 **BE 에이전트 (`bgt-be-implementer`)** — `bgt-be/docs/Server.md`를 먼저 읽는다.
 - Model → Repository → Service → Controller 순서로 구현.
-- 프로시저 연동: `bgt-be/docs/sp`의 배포된 SP 패키지 문서를 먼저 확인한다. 해당 화면에 매칭되는 SP를 찾아 XML `CALL` 구문을 배포 시그니처와 정확히 일치시킨다(파라미터 순서·IN/OUT·커서). 임의로 인자를 추가하지 않는다(불일치 시 ORA-06550).
+- 프로시저 연동: 배포 SP 본문(DB `ALL_SOURCE` 조회 또는 `docs/migration/<화면>/_sp_*.sql`)을 먼저 확인한다. 해당 화면에 매칭되는 SP를 찾아 XML `CALL` 구문을 배포 시그니처와 정확히 일치시킨다(파라미터 순서·IN/OUT·커서). 임의로 인자를 추가하지 않는다(불일치 시 ORA-06550).
 - resultMap/Model의 컬럼명은 SP 문서의 커서 컬럼 alias(예: `CODE`/`NAME`/`NAME_ENG`)와 정확히 맞춘다 — alias가 다르면 매핑이 null이 된다.
-- `bgt-be/docs/sp`에 매칭되는 SP 문서가 없으면(SP 미배포) 임의 쿼리를 만들지 말되, **Controller·Service 영역까지는 구현**하고 응답은 **stub 데이터 약 30건**으로 넉넉히 반환한다(그리드·페이징 확인용). Repository/XML의 실제 SP `CALL` 연결은 `// TODO: SP 배포 후 연결` 주석으로 남겨 배포 후 연결한다.
+- `ALL_SOURCE`에 매칭되는 SP가 없으면(SP 미배포) 임의 쿼리를 만들지 말되, **Controller·Service 영역까지는 구현**하고 응답은 **stub 데이터 약 30건**으로 넉넉히 반환한다(그리드·페이징 확인용). Repository/XML의 실제 SP `CALL` 연결은 `// TODO: SP 배포 후 연결` 주석으로 남겨 배포 후 연결한다.
 - 구현 시 ASIS 메뉴 path와 화면 코드를 화면의 Controller 파일에 주석으로 표시한다.
 
 **QA 에이전트** — FE/BE를 기다리지 않고 ASIS 분석으로 테스트 시나리오를 작성한다.

@@ -1,6 +1,6 @@
 # 개발 표준 — 핵심 강제 규칙 (BGT)
 
-> 출처: BGT 개발 케이스 레시피(`.claude/rules/develop/`). 상세는 각 케이스 문서(a/b/c/d), 기본 개발 흐름은 `bgt-fe/src/docs/ko/Intro.md`·`bgt-be/docs/Server.md`.
+> 출처: BGT 개발 케이스 레시피(`.claude/rules/develop/`). 상세는 각 케이스 문서(a/b/c/d), 기본 개발 흐름은 `bgt-fe/src/docs/ko/Index.md`·`bgt-be/docs/Server.md`.
 > 대상: `bgt-fe`·`bgt-be` 코드를 만들거나 고칠 때 전부. 새 화면/기능/API는 **먼저 `README.md` 라우터에서 케이스를 매칭**하고 그 문서의 "참고 원본"을 복사 기반으로 작업한다.
 
 ## MUST (공통)
@@ -20,7 +20,7 @@
 13. **권한 버튼** — 기능·저장은 `AuthButton` + `requiredAuthLevel={ButtonAuthLevel.WRITE}`, 조회는 `SearchButton`, 다운로드 등 조회성은 `READ`. 일반 Button 금지. → B-11
 14. **검증·피드백** — 스키마는 `@/utils` zod 헬퍼(`requiredString`/`optionalString`/`requiredDate` …) + `createDefaultValues(schema)`(수기 defaultValues 금지). `await showConfirm(...)` 반환값 반드시 분기. 메시지는 `MSG_*` 상수(하드코딩 금지). → B-22, B-12
 15. **조회조건 레이아웃** — `SearchBox` 는 전 필드 `labelAlign="left"` + **열 단위** 동일 `labelMinWidth`(화면 전체 단일값 금지), 조건을 전폭 묶음 `<Grid container item xs={12}>` 로 감싸지 않는다(한 행 `xs` 합 ≤ 12), 버튼영역은 DS 가 그리므로 자리 예약 칸·띄우기 `sx` 금지. → B-23
-16. **코드 드롭다운** — SP 코드 컬럼 규약은 `CODE`/`NAME`/`NAME_ENG`, 코드명 null 금지(label null 이면 페이지 크래시). 새 코드는 `COMMON_CODE_KEYS`/`BGT_CODE_QUERY_MAP` 에 등록 후 사용. → B-08
+16. **코드 드롭다운** — SP 코드 컬럼 규약은 `CODE`/`NAME`/`NAME_ENG`, 코드명 null 금지(label null 이면 페이지 크래시). 새 코드는 `COMMON_CODE_KEYS`/`CST_CODE_QUERY_MAP`(`hooks/pms/code/useCstCode.ts`) 에 등록 후 사용. → B-08
 
 ## 케이스 매칭 (진입점)
 
@@ -41,4 +41,4 @@
 > - A-05(탭) → `__tabs/**`
 > - C-19(커서 alias) → `*.xml`(resultMap) + `**/model/*.java`(identity 핀 대상 VO)
 >
-> **선행 트리거** — 룰 주입은 tool result 에 붙으므로 **신규 파일 Write 시점엔 구조적으로 늦다**. 케이스 문서를 제때 받는 경로는 "복사할 참고 원본을 Read" 하는 것뿐이다: FE=`template/**`(broad 글롭에 걸림), BE=`bgt-be/docs/sp/*.txt`(C-13·C-15 트리거로 등록). 그래서 broad 글롭을 파일명으로 좁히지 않는다 — 좁히면 이 선행 커버가 깨진다. 같은 룰은 세션당 1회만 주입되므로(재주입 없음) 넓게 잡는 비용은 사실상 없다.
+> **선행 트리거** — 룰 주입은 tool result 에 붙으므로 **신규 파일 Write 시점엔 구조적으로 늦다**. 케이스 문서를 제때 받는 경로는 "복사할 참고 원본을 Read" 하는 것뿐이다: FE=`template/**`(broad 글롭에 걸림), BE=복사할 배포 슬라이스(`bgt-be/**/*.{java,xml}`, 예 `sc/stdcd/desccd/`). 그래서 broad 글롭을 파일명으로 좁히지 않는다 — 좁히면 이 선행 커버가 깨진다. 같은 룰은 세션당 1회만 주입되므로(재주입 없음) 넓게 잡는 비용은 사실상 없다.

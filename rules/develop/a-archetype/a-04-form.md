@@ -47,7 +47,7 @@ bgt-fe/src/pages/template/form/
 
 ## 코드 예제
 
-### 검색폼/데이터폼 분리 — `template/form/index.tsx:37`
+### 검색폼/데이터폼 분리 — `template/form/index.tsx` `searchForm`·`dataForm`
 ```tsx
 // 검색폼
 const searchForm = useForm<SearchForm>({ resolver: zodResolver(searchSchema), defaultValues: condition });

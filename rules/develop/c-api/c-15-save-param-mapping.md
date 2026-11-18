@@ -1,7 +1,6 @@
 ---
 paths:
   - "bgt-be/**/*.{java,xml}"
-  - "bgt-be/docs/sp/*.txt"
 ---
 
 # C-15. 저장 파라미터 매핑
@@ -41,7 +40,7 @@ public ResponseEntity<...> saveDescCdCud(@Valid @RequestBody List<DescCdCudReque
 }
 ```
 
-### 공통 유틸 — 세션 작성자 + state→flagCd — `bgt/util/CommonDtoUtil.java:60`
+### 공통 유틸 — 세션 작성자 + state→flagCd — `bgt/util/CommonDtoUtil.java` `initBaseFields`
 ```java
 public static <T extends BaseSavedDto> void initBaseFields(T dto, UserSessionVO session) {
   if (session != null) {

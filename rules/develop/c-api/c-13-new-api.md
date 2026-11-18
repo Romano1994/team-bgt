@@ -1,7 +1,6 @@
 ---
 paths:
   - "bgt-be/**/*.{java,xml}"
-  - "bgt-be/docs/sp/*.txt"
 ---
 
 # C-13. 신규 API(프로시저) 등록·호출
